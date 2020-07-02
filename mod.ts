@@ -35,14 +35,20 @@ async function loadPlanetsData() {
             "koi_srad",
             "kepler_name",
             "koi_count",
-            "koi_steff"
+            "koi_steff",
+            "koi_period"
         ]);
     });
 }
 
 const newEarths = await loadPlanetsData();
 
+console.log(`${newEarths.length} habitable planets found !`);
 for (const planet of newEarths) {
     console.table(planet);
 }
-console.log(`${newEarths.length} habitable planets found !`);
+
+
+const sortedEarth = newEarths.sort((planetA, planetB) => Number(planetA.koi_period) - Number(planetB.koi_period));
+console.log(`${sortedEarth[0].kepler_name} has the shortest orbital period : ${sortedEarth[0].koi_period} days`);
+console.log(`${sortedEarth[sortedEarth.length - 1].kepler_name} has the longest orbital period : ${sortedEarth[sortedEarth.length - 1].koi_period} days`);
